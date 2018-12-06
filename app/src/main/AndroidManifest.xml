@@ -18,7 +18,8 @@
         </activity>
         <activity android:name=".CoreSzieMaxSizeWorkQueueActivity" />
         <activity android:name=".QueueActivity" />
-        <activity android:name=".RejectedPolicyActivity"></activity>
+        <activity android:name=".RejectedPolicyActivity" />
+        <activity android:name=".ThreadFactoryActivity"/>
     </application>
 
 </manifest>

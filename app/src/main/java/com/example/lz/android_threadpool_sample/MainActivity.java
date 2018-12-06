@@ -27,4 +27,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, RejectedPolicyActivity.class);
         startActivity(intent);
     }
+
+    public void onThreadFactoryClick(View view) {
+        Intent intent = new Intent(MainActivity.this, ThreadFactoryActivity.class);
+        startActivity(intent);
+    }
 }
