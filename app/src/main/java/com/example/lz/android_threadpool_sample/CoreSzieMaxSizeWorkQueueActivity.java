@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -17,6 +17,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
 
     /**
      * 任务提交时，判断的顺序为 corePoolSize --> workQueue --> maximumPoolSize
+     * 如果三者都满了，使用handler处理被拒绝的任务。
      */
 
     @Override
@@ -41,7 +42,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
         int maximumPoolSize = 5;
         long keepAliveTime = 1;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue(128);
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(128);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         for (int i = 0; i < taskCount; i++) {
             executor.execute(new MyRunnable(i));
@@ -67,7 +68,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
         long keepAliveTime = 1;
         int workQueueCount = 128;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue(workQueueCount);
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(workQueueCount);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         for (int i = 0; i < taskCount; i++) {
             executor.execute(new MyRunnable(i));
@@ -92,7 +93,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
         long keepAliveTime = 1;
         int workQueueCount = 2;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue(workQueueCount);
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(workQueueCount);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         for (int i = 0; i < taskCount; i++) {
             executor.execute(new MyRunnable(i));
@@ -115,7 +116,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
         long keepAliveTime = 1;
         int workQueueCount = 10;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue(workQueueCount);
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(workQueueCount);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         for (int i = 0; i < taskCount; i++) {
             executor.execute(new MyRunnable(i));
@@ -142,7 +143,7 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
         long keepAliveTime = 1;
         int workQueueCount = 2;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new LinkedBlockingQueue(workQueueCount);
+        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(workQueueCount);
         ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         for (int i = 0; i < taskCount; i++) {
             executor.execute(new MyRunnable(i));

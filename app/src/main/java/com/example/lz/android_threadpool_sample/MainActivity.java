@@ -7,8 +7,6 @@ import android.view.View;
 
 public class MainActivity extends Activity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +15,11 @@ public class MainActivity extends Activity {
 
     public void onCoreSzieMaxSizeWorkQueueClick(View view) {
         Intent intent = new Intent(MainActivity.this, CoreSzieMaxSizeWorkQueueActivity.class);
+        startActivity(intent);
+    }
+
+    public void onQueueClick(View view) {
+        Intent intent = new Intent(MainActivity.this, QueueActivity.class);
         startActivity(intent);
     }
 }
