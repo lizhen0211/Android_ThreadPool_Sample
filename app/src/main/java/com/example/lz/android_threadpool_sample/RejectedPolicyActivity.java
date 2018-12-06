@@ -8,8 +8,10 @@ import android.view.View;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RejectedPolicyActivity extends Activity {
 
@@ -116,8 +118,15 @@ public class RejectedPolicyActivity extends Activity {
         long keepAliveTime = 1;
         int workQueueCount = 2;
         TimeUnit unit = TimeUnit.SECONDS;
-        BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue(workQueueCount);
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new RejectedExecutionHandler() {
+        ArrayBlockingQueue workQueue = new ArrayBlockingQueue(workQueueCount);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new ThreadFactory() {
+            private final AtomicInteger poolNumber = new AtomicInteger(1);
+
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "pool-" + poolNumber.getAndIncrement() + "-thread-");
+            }
+        }, new RejectedExecutionHandler() {
             @Override
             public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
                 //移除任务
