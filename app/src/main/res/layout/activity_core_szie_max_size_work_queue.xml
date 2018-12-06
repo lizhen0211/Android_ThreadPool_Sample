@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CoreSzieMaxSizeWorkQueueActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onTask_LT_CoreSize"
+        android:text="任务数量 小于 核心线程数量" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onTask_GT_CoreSize_LT_MaxnumSize_WorkQueue_Not_Full"
+        android:text="任务数量 大于等于 核心线程数量并且 小于 最大线程数 并且 工作队列未满" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onTask_GT_CoreSize_LT_MaxnumSize_WorkQueue_Full"
+        android:text="任务数量 大于 核心线程数量并且 小于 最大线程数 并且 工作队列已满" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onTask_GT_MaxnumSize_WorkQueue_Not_Full"
+        android:text="任务数量 大于 最大线程数 并且 工作队列未满" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="15dp"
+        android:onClick="onTask_GT_MaxnumSize_WorkQueue_Full"
+        android:text="任务数 大于 最大线程数 并且 工作队列已满" />
+
+</LinearLayout>
