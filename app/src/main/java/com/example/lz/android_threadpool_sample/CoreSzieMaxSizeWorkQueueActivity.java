@@ -132,6 +132,8 @@ public class CoreSzieMaxSizeWorkQueueActivity extends Activity {
     public void onTask_GT_MaxnumSize_WorkQueue_Full(View view) {
         //如果线程池中的线程数量 大于 最大线程数 且workQueue已满；
         //则通过handler所指定的策略来处理任务；
+        //此处，任务数量是10，核心线程数是3。运行线程数 大于 核心线程数（接受3个任务），使用工作队列，工作队列缓存（接受2个任务），
+        //最大线程数时5，还可以 接受 5-3 = 2 个任务，超出的8、9、10 任务将被拒绝
 
         //可以看到，由于默认使用 AbortPolicy
         //抛出了异常，rejected from java.util.concurrent.ThreadPoolExecutor@bf4d680[Running, pool size = 5, active threads = 5, queued tasks = 2, completed tasks = 0]

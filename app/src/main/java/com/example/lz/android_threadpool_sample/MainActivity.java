@@ -22,4 +22,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, QueueActivity.class);
         startActivity(intent);
     }
+
+    public void onRejectedPolicyClick(View view) {
+        Intent intent = new Intent(MainActivity.this, RejectedPolicyActivity.class);
+        startActivity(intent);
+    }
 }

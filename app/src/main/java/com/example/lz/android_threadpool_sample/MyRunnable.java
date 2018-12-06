@@ -19,4 +19,8 @@ public class MyRunnable implements Runnable {
             e.printStackTrace();
         }
     }
+
+    public int getIndex() {
+        return index;
+    }
 }

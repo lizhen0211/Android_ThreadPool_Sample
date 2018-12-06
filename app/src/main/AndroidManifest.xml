@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CoreSzieMaxSizeWorkQueueActivity" />
-        <activity android:name=".QueueActivity"></activity>
+        <activity android:name=".QueueActivity" />
+        <activity android:name=".RejectedPolicyActivity"></activity>
     </application>
 
 </manifest>
