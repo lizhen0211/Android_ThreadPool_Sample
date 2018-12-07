@@ -141,4 +141,51 @@ public class RejectedPolicyActivity extends Activity {
             Log.e(MyRunnable.class.getSimpleName(), "活跃线程数量" + executor.getActiveCount() + "");
         }
     }
+
+    public void onReSizeMaxWhenRejectedExecutionClick(View view) {
+        int taskCount = 20;
+        int corePoolSize = 3;
+        int maximumPoolSize = 5;
+        long keepAliveTime = 1;
+        int workQueueCount = 2;
+        TimeUnit unit = TimeUnit.SECONDS;
+        ArrayBlockingQueue workQueue = new ArrayBlockingQueue(workQueueCount);
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, new ThreadFactory() {
+            private final AtomicInteger poolNumber = new AtomicInteger(1);
+
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r, "pool-" + poolNumber.getAndIncrement() + "-thread-");
+            }
+        }, new ReSizeMaxRejectedExecutionHandler(maximumPoolSize));
+        for (int i = 0; i < taskCount; i++) {
+            executor.execute(new MyRunnable(i));
+            Log.e(MyRunnable.class.getSimpleName(), "活跃线程数量" + executor.getActiveCount() + "");
+        }
+    }
+
+    class ReSizeMaxRejectedExecutionHandler implements RejectedExecutionHandler {
+
+        public int maximumPoolSize;
+
+        public ReSizeMaxRejectedExecutionHandler(int maximumPoolSize) {
+            this.maximumPoolSize = maximumPoolSize;
+        }
+
+        @Override
+        public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+            int size = maximumPoolSize * 2;
+            if (size < 15) {
+                maximumPoolSize = size;
+                executor.setMaximumPoolSize(maximumPoolSize);
+                Log.e(MyRunnable.class.getSimpleName(), "加大最大线程数 至" + executor.getMaximumPoolSize());
+            } else {
+                //移除任务
+                executor.remove(r);
+                MyRunnable myTask = (MyRunnable) r;
+                int index = myTask.getIndex();
+                Log.e(MyRunnable.class.getSimpleName(), "第" + index + "被拒绝后移除");
+            }
+        }
+    }
 }
